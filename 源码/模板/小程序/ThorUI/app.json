@@ -1,0 +1,146 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/extend/extend",
+    "pages/my/my",
+    "pages/maps/maps",
+    "pages/weather/weather",
+    "pages/longlat/longlat",
+    "pages/selectCity/selectCity",
+    "pages/picker/picker",
+    "pages/picker-view/picker-view",
+    "pages/indexList/indexList",
+    "pages/qrcode/qrcode",
+    "pages/drawer/drawer",
+    "pages/swipe-action/swipe-action",
+    "pages/navbar-1/navbar-1",
+    "pages/navbar-2/navbar-2",
+    "pages/news/news",
+    "pages/product/product",
+    "pages/basic/basic",
+    "pages/location/location",
+    "pages/about/about",
+    "pages/login/login",
+    "pages/log/log"
+  ],
+  "subpackages": [
+    {
+      "root": "pages/basic-view/",
+      "pages": [
+        "color/color",
+        "button/button",
+        "flex/flex",
+        "tag/tag",
+        "badge/badge",
+        "load/load",
+        "icon/icon",
+        "list/list",
+        "card/card",
+        "grid/grid",
+        "footer/footer",
+        "other/other"
+      ]
+    },
+    {
+      "root": "pages/extend-view/",
+      "pages": [
+        "msgtips/msgtips",
+        "sticky/sticky",
+        "keyboard/keyboard",
+        "lockscreen/lockscreen",
+        "timeaxis/timeaxis",
+        "rollingNews/rollingNews",
+        "popup/popup",
+        "luckdraw/luckdraw",
+        "template/template",
+        "news/news",
+        "newsDetail/newsDetail",
+        "news-video/news-video",
+        "news-cmt/news-cmt",
+        "news-cmt-reply/news-cmt-reply",
+        "news-cmt-list/news-cmt-list",
+        "news-search/news-search",
+        "actionsheet/actionsheet",
+        "mall/mall",
+        "msgList/msgList",
+        "chat/chat",
+        "friendsList/friendsList",
+        "productList/productList",
+        "productDetail/productDetail",
+        "numberbox/numberbox",
+        "rate/rate",
+        "modal/modal",
+        "carousel/carousel",
+        "countdown/countdown",
+        "divider/divider",
+        "goTop/goTop",
+        "button/button",
+        "alert/alert",
+        "toast/toast",
+        "formValidation/formValidation",
+        "tips/tips",
+        "mall-extend/address/address",
+        "mall-extend/editAddress/editAddress",
+        "mall-extend/my/my",
+        "mall-extend/myOrder/myOrder",
+        "mall-extend/set/set",
+        "mall-extend/shopcart/shopcart",
+        "mall-extend/submitOrder/submitOrder",
+        "mall-extend/success/success",
+        "mall-extend/userInfo/userInfo",
+        "picker-dateTime/picker-dateTime",
+        "fab/fab",
+        "tabbar/tabbar",
+        "tabs/tabs",
+        "collapse/collapse",
+        "upload/upload"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#5677FC",
+    "navigationBarTitleText": "Thor UI",
+    "navigationBarTextStyle": "white",
+    "backgroundColorTop": "#fafafa",
+    "backgroundColorBottom": "#fafafa"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#5677FC",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "code",
+        "iconPath": "static/images/tabbar/code_gray.png",
+        "selectedIconPath": "static/images/tabbar/code_active.png"
+      },
+      {
+        "pagePath": "pages/extend/extend",
+        "text": "extend",
+        "iconPath": "static/images/tabbar/extend_gray.png",
+        "selectedIconPath": "static/images/tabbar/extend_active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "thor",
+        "iconPath": "static/images/tabbar/thor_gray.png",
+        "selectedIconPath": "static/images/tabbar/thor_active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于定位效果展示"
+    }
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
+}
