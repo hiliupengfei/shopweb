@@ -1,54 +1,232 @@
-//index.js
-//获取应用实例
-const app = getApp()
-
+const util = require('../../utils/util.js')
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    current: 0,
+    tabbar: [{
+      icon: "home",
+      text: "首页",
+      size: 21
+    }, {
+      icon: "category",
+      text: "分类",
+      size: 24
+    }, {
+      icon: "cart",
+      text: "购物车",
+      size: 22
+    }, {
+      icon: "people",
+      text: "我的",
+      size: 24
+    }],
+    hotSearch: [
+      "茉莉花茶",
+      "铁观音",
+      "普洱"
+    ],
+    banner: [
+      "1.jpg",
+      "2.jpg",
+      "3.jpg",
+      "4.jpg",
+      "5.jpg"
+    ],
+    newProduct: [{
+      name: "时尚舒适公主裙高街修身长裙",
+      present: 198,
+      original: 298,
+      pic: "1.jpg",
+      type: 1,
+      isLabel: true
+    }, {
+      name: "高街修身雪纺衫",
+      present: 398,
+      original: 598,
+      pic: "2.jpg",
+      type: 2,
+      isLabel: true
+    }, {
+      name: "轻奢商务上衣",
+      present: 99,
+      original: 199,
+      pic: "3.jpg",
+      type: 1,
+      isLabel: true
+    }, {
+      name: "品质牛皮婚鞋牛皮婚鞋品质就是好",
+      present: 99,
+      original: 199,
+      pic: "5.jpg",
+      type: 1,
+      isLabel: true
+    }, {
+      name: "轻奢时尚大包限时新品推荐",
+      present: 99,
+      original: 199,
+      pic: "6.jpg",
+      type: 1,
+      isLabel: false
+    }, {
+      name: "高街修身长裙",
+      present: 999,
+      original: 1299,
+      pic: "4.jpg",
+      type: 2,
+      isLabel: true
+    }],
+    productList: [{
+      img: 1,
+      name: "欧莱雅（LOREAL）奇焕光彩粉嫩透亮修颜霜 30ml（欧莱雅彩妆 BB霜 粉BB 遮瑕疵 隔离）",
+      sale: 599,
+      factory: 899,
+      payNum: 2342
+    },
+    {
+      img: 2,
+      name: "德国DMK进口牛奶  欧德堡（Oldenburger）超高温处理全脂纯牛奶1L*12盒",
+      sale: 29,
+      factory: 69,
+      payNum: 999
+    },
+    {
+      img: 3,
+      name: "【第2支1元】柔色尽情丝柔口红唇膏女士不易掉色保湿滋润防水 珊瑚红",
+      sale: 299,
+      factory: 699,
+      payNum: 666
+    },
+    {
+      img: 4,
+      name: "百雀羚套装女补水保湿护肤品",
+      sale: 1599,
+      factory: 2899,
+      payNum: 236
+    },
+    {
+      img: 5,
+      name: "百草味 肉干肉脯 休闲零食 靖江精制猪肉脯200g/袋",
+      sale: 599,
+      factory: 899,
+      payNum: 2399
+    },
+    {
+      img: 6,
+      name: "短袖睡衣女夏季薄款休闲家居服短裤套装女可爱韩版清新学生两件套 短袖粉色长颈鹿 M码75-95斤",
+      sale: 599,
+      factory: 899,
+      payNum: 2399
+    },
+    {
+      img: 1,
+      name: "欧莱雅（LOREAL）奇焕光彩粉嫩透亮修颜霜",
+      sale: 599,
+      factory: 899,
+      payNum: 2342
+    },
+    {
+      img: 2,
+      name: "德国DMK进口牛奶",
+      sale: 29,
+      factory: 69,
+      payNum: 999
+    },
+    {
+      img: 3,
+      name: "【第2支1元】柔色尽情丝柔口红唇膏女士不易掉色保湿滋润防水 珊瑚红",
+      sale: 299,
+      factory: 699,
+      payNum: 666
+    },
+    {
+      img: 4,
+      name: "百雀羚套装女补水保湿护肤品",
+      sale: 1599,
+      factory: 2899,
+      payNum: 236
+    }
+    ],
+    pageIndex: 1,
+    loadding: false,
+    pullUpOn: true
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  onLoad: function (options) {
+
+  },
+  tabbarSwitch: function (e) {
+    let index = e.currentTarget.dataset.index;
+    this.setData({
+      current: index
     })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+    if (index != 0) {
+      if (index == 1) {
+        this.classify();
+      } else if (index == 2) {
+        wx.navigateTo({
+          url: '../mall-extend/shopcart/shopcart'
+        })
+      } else {
+        wx.navigateTo({
+          url: '../mall-extend/my/my'
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  onPullDownRefresh: function () {
+    let loadData = JSON.parse(JSON.stringify(this.data.productList));
+    loadData = loadData.splice(0, 10)
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      productList: loadData,
+      pageIndex: 1,
+      pullUpOn: true,
+      loadding: false
+    })
+    wx.stopPullDownRefresh()
+  },
+  onReachBottom: function () {
+    if (!this.data.pullUpOn) return;
+    this.setData({
+      loadding: true
+    }, () => {
+      if (this.data.pageIndex == 4) {
+        this.setData({
+          loadding: false,
+          pullUpOn: false
+        })
+      } else {
+        let loadData = JSON.parse(JSON.stringify(this.data.productList));
+        loadData = loadData.splice(0, 10)
+        if (this.data.pageIndex == 1) {
+          loadData = loadData.reverse();
+        }
+        this.setData({
+          productList: this.data.productList.concat(loadData),
+          pageIndex: this.data.pageIndex + 1,
+          loadding: false
+        })
+      }
+    })
+  },
+  detail: function () {
+    wx.navigateTo({
+      url: '../productDetail/productDetail'
+    })
+  },
+  classify: function () {
+    wx.navigateTo({
+      url: '/pages/navbar-2/navbar-2'
+    })
+
+  },
+  more: function (e) {
+    let key = e.currentTarget.dataset.key || "";
+    wx.navigateTo({
+      url: '../productList/productList?searchKey=' + key
+    })
+
+  },
+  search: function () {
+    wx.navigateTo({
+      url: '../news-search/news-search'
     })
   }
 })
