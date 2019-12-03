@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.pengfei.ssm.mapper.tbUserMapper">
+	<insert id="insertUser" parameterType="cn.pengfei.ssm.po.tbUsers" >
+		insert into tbUsers (itemID,nickName,avatarUrl,gender,province,city,country) values (sys_guid(),#{nickName},#{avatarUrl},#{gender},#{province},#{city},#{country})
+	</insert>
+</mapper>
