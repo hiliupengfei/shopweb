@@ -1,0 +1,21 @@
+<!--/* 在线支付: 支持线下付款后线上扫码付款功能  */-->
+<!--扫码按扭-->
+<view class="container">
+  <view class="header">
+    <view class="sub-title">请扫描商品的二维码或条形码，并完成支付。 </view>
+  </view>
+  <!-- <tui-tips fixed="{{true}}" open-type="getUserInfo" imgUrl="/static/images/toast/img_nodata.png" bind:click="scanCode" btnText="扫码"></tui-tips> -->
+<button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">获取用户信息</button>
+</view>
+
+<!--tabbar-->
+  <view class="tui-tabbar">
+    <view class="tui-checkAll">
+      <view class="tui-total-price" wx:if="{{!isEdit}}">合计:
+        <text class="tui-bold">￥800</text> </view>
+    </view>
+    <view>
+      <tui-button width="200rpx" height="70rpx" size="{{30}}" type="danger" shape="circle" wx:if="{{!isEdit}}" bind:click="btnPay">去结算(0)</tui-button>
+      <tui-button width="200rpx" height="70rpx" size="{{30}}" type="danger" shape="circle" plain="{{true}}" wx:else>删除</tui-button>
+    </view>
+  </view>
