@@ -47,8 +47,43 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 4,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/extend/extend",
+					"pathName": "pages/extend/extend",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/extend-view/mall-extend/myOrder/myOrder",
+					"pathName": "pages/extend-view/mall-extend/myOrder/myOrder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/extend-view/mall-extend/shopcart/shopcart",
+					"pathName": "pages/extend-view/mall-extend/shopcart/shopcart",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/extend-view/msgtips/msgtips",
+					"pathName": "pages/extend-view/msgtips/msgtips",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/extend-view/tips/tips",
+					"pathName": "pages/extend-view/tips/tips",
+					"scene": null
+				}
+			]
 		}
 	}
 }
