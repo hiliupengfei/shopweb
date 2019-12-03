@@ -1,5 +1,7 @@
 package cn.pengfei.ssm.service;
 
+import java.util.List;
+
 import cn.pengfei.ssm.po.tbUsers;
 
 public interface UserService {
@@ -12,4 +14,8 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public String insertUsers(tbUsers user) throws Exception ;
+	
+	public List<tbUsers> searchUserByOpenId(String openId) throws Exception ;
+	
+	public String updateUserByOpenId(tbUsers user) throws Exception ;
 }

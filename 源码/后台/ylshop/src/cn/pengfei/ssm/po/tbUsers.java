@@ -81,6 +81,13 @@ public class tbUsers {
 	 * 电话(手机号)
 	 */
 	private String phone ;
+	private String openID;
+	public String getOpenID() {
+		return openID;
+	}
+	public void setOpenID(String openID) {
+		this.openID = openID;
+	}
 	@Override
 	public String toString() {
 		return "tbUsers [itemID=" + itemID + ", nickName=" + nickName + ", avatarUrl=" + avatarUrl + ", gender="

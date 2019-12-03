@@ -3,6 +3,7 @@ package cn.pengfei.ssm.controller.converter;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,12 +52,27 @@ public class UserController {
 		user.setNickName(obj.getString("nickName"));
 		user.setProvince(obj.getString("province"));
 		System.out.println(user);
-		//用户登录
 		retJson = userService.insertUsers(user);
 		System.out.println(retJson);
 		out.write(retJson);
 		out.flush();
 		out.close();
+		//用户登录
+//		tbUsers user1 = userService.searchUserByOpenId(user.getOpenID());
+//		if(user1 != null ){
+//			retJson = userService.insertUsers(user);
+//			System.out.println(retJson);
+//			out.write(retJson);
+//			out.flush();
+//			out.close();
+//		}
+//		else{
+//			
+//		}System.out.println("用户已存在");
+//		out.write("{msg:'用户已存在'}");
+//		out.flush();
+//		out.close();
+		
 	}
 	/**
      * decoding encrypted data to get openid
@@ -65,15 +82,32 @@ public class UserController {
      * @param code
      * @return
      */
-    @RequestMapping(value = "/decodeUserInfo", method = RequestMethod.GET)
-    private String decodeUserInfo(String iv, String encryptedData, String code) {
+	//
+    @RequestMapping(value = "/decodeUserInfo", method = RequestMethod.POST)
+    private void decodeUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception {
+//    	String iv, String encryptedData, String code
+    	req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
+		//Map<String, String> map = weixinService.parseRequest(req.getInputStream());
+		StringBuffer sb = new StringBuffer();
+		BufferedReader reader = req.getReader();
+		String line =reader.readLine();
+		System.out.println(line);
+		JSONObject obj = new JSONObject();
+		obj = obj.parseObject(line);
+		String iv = obj.getString("iv");
+		String encryptedData = obj.getString("encryptedData");
+		String code = obj.getString("code");
+		reader.close();
+		PrintWriter out = res.getWriter();
         Map map = new HashMap();
+        System.out.println("进入解密获取openid");
         // login code can not be null
         if (code == null || code.length() == 0) {
             map.put("status", 0);
             map.put("msg", "code 不能为空");
             
-            return JSONObject.toJSONString(map);
+            //return JSONObject.toJSONString(map);
         }
         // mini-Program's AppID
         String wechatAppId = "wx0d944d9ca0c7c2c7";
@@ -97,7 +131,7 @@ public class UserController {
 
         // getting open_id
         String openId = json.get("openid").toString();
-
+        System.out.println("未解密:"+openId);
         // decoding encrypted info with AES
         try {
             String result = AesCbcUtil.decrypt(encryptedData, sessionKey, iv, "UTF-8");
@@ -115,9 +149,31 @@ public class UserController {
                 userInfo.put("country", userInfoJSON.get("country"));
                 userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
                 userInfo.put("unionId", userInfoJSON.get("unionId"));
+                tbUsers user = new tbUsers();
+                user.setAvatarUrl(userInfoJSON.getString("avatarUrl"));
+                user.setCity(userInfoJSON.getString("city"));
+                user.setCountry(userInfoJSON.getString("country"));
+                user.setNickName(userInfoJSON.getString("nickName"));
+                user.setOpenID(userInfoJSON.getString("openId"));
+                user.setProvince(userInfoJSON.getString("province"));
+                user.setGender(userInfoJSON.getString("gender"));
+                System.out.println(user);
+                List<tbUsers> user1 = userService.searchUserByOpenId(user.getOpenID());
+        		System.out.println("search:"+user1);
+                if(user1.size() <= 0 ){
+        			userService.insertUsers(user);
+        			System.out.println("没有此用户");
+        		}else{
+        			userService.updateUserByOpenId(user);
+        			System.out.println("有此用户，不添加");
+        		}
+//                userService.insertUsers(user);
                 map.put("userInfo", userInfo);
                 System.out.println(JSONObject.toJSONString(map));
-                return JSONObject.toJSONString(map);
+//                return JSONObject.toJSONString(map);
+                out.write(JSONObject.toJSONString(map));
+        		out.flush();
+        		out.close();
             }
 
 
@@ -127,6 +183,8 @@ public class UserController {
         map.put("status", 0);
         map.put("msg", "解密失败");
         
-        return JSONObject.toJSONString(map);
+        out.write(JSONObject.toJSONString(map));
+		out.flush();
+		out.close();
     }
 }

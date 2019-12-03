@@ -1,5 +1,7 @@
 package cn.pengfei.ssm.mapper;
 
+import java.util.List;
+
 import cn.pengfei.ssm.po.tbUsers;
 
 public interface tbUserMapper {
@@ -12,4 +14,8 @@ public interface tbUserMapper {
 	 * @throws Exception 抛出异常
 	 */
 	public int insertUser(tbUsers user) throws Exception ;
+	
+	public List<tbUsers> searchUserByOpenId(String openId) throws Exception ;
+	
+	public int updateUserByOpenId(tbUsers user) throws Exception ;
 }

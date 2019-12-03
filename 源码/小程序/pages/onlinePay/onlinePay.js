@@ -36,8 +36,8 @@ Component({
                 console.log('[INFO] app.js/ ', { encryptedData: res.encryptedData, iv: res.iv, code: that.thisCode })
                 //3.请求自己的服务器，解密用户信息 获取unionId等加密信息
                 wx.request({
-                  url: 'http://localhost:8083/ylshop/users/decodeUserInfo.php',//自己的服务接口地址
-                  method: 'get',
+                  url: 'http://localhost:8080/ylshop/users/decodeUserInfo.php',//自己的服务接口地址
+                  method: 'POST',
                   header: {
                     "Content-Type": "applciation/json"
                   },
@@ -45,9 +45,9 @@ Component({
                   success: function (data) {
 
                     //4.解密成功后 获取自己服务器返回的结果
-                    console.log(data.status)
-                    if (data.status == 1) {
-                      var userInfos = data.userInfo;
+                    console.log(data)
+                    if (data.data.status == 1) {
+                      var userInfos = data.data.userInfo;
                       // that.globalData.openId = userInfos.openId;
                       console.log('[INFO] app.js/ userInfo:', userInfos)
                     } else {
